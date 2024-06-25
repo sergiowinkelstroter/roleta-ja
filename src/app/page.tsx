@@ -13,7 +13,7 @@ const data = [
   { option: "Traga uma visita" },
   { option: "Cante uma música" },
   { option: "Fale um verso sobre amor" },
-  { option: "Explique o 4 AS de MRNT" },
+  { option: "Explique os 4 AS de MRNT" },
   { option: "Poste no Instagram" },
 ];
 
