@@ -1,7 +1,13 @@
 "use client";
 import React, { useState } from "react";
-import { Wheel } from "react-custom-roulette";
+import dynamic from "next/dynamic";
 import "./App.css";
+
+// Use dynamic import to load the Wheel component only on the client-side
+const Wheel = dynamic(
+  () => import("react-custom-roulette").then((mod) => mod.Wheel),
+  { ssr: false }
+);
 
 const data = [
   { option: "Pregue com objeto" },
@@ -23,7 +29,7 @@ const radiusLineColor = "#eeeeee";
 const radiusLineWidth = 8;
 const fontFamily = "Nunito";
 const fontWeight = "bold";
-const fontSize = 12;
+const fontSize = 20; // Aumente o tamanho da fonte para combinar com a roleta maior
 const fontStyle = "normal";
 const textDistance = 60;
 const spinDuration = 0.5;
@@ -54,46 +60,41 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <header className="App-header">
+        <h1 className="pt-16 font-bold text-5xl">Roleta JA</h1>
         {result ? (
           <div className="result-container">
-            <h2 className="result font-bold">Resultado: {result}</h2>
-            <button
-              className="bg-black p-2 rounded-lg text-white text-base"
-              onClick={handleReset}
-            >
+            <h2 className="result">{result}</h2>
+            <button className="spin-button" onClick={handleReset}>
               Girar novamente
             </button>
           </div>
         ) : (
-          <>
-            <h1 className="pt-16 font-bold text-5xl">Roleta JA</h1>
-            <div className="wheel-container">
-              <Wheel
-                mustStartSpinning={mustSpin}
-                prizeNumber={prizeNumber}
-                data={data}
-                backgroundColors={backgroundColors}
-                textColors={textColors}
-                fontFamily={fontFamily}
-                fontSize={fontSize}
-                fontWeight={fontWeight}
-                fontStyle={fontStyle}
-                outerBorderColor={outerBorderColor}
-                outerBorderWidth={outerBorderWidth}
-                innerRadius={innerRadius}
-                innerBorderColor={innerBorderColor}
-                innerBorderWidth={innerBorderWidth}
-                radiusLineColor={radiusLineColor}
-                radiusLineWidth={radiusLineWidth}
-                spinDuration={spinDuration}
-                textDistance={textDistance}
-                onStopSpinning={handleStopSpinning}
-              />
-              <button className="spin-button" onClick={handleSpinClick}>
-                Girar
-              </button>
-            </div>
-          </>
+          <div className="wheel-container">
+            <Wheel
+              mustStartSpinning={mustSpin}
+              prizeNumber={prizeNumber}
+              data={data}
+              backgroundColors={backgroundColors}
+              textColors={textColors}
+              fontFamily={fontFamily}
+              fontSize={fontSize}
+              fontWeight={fontWeight}
+              fontStyle={fontStyle}
+              outerBorderColor={outerBorderColor}
+              outerBorderWidth={outerBorderWidth}
+              innerRadius={innerRadius}
+              innerBorderColor={innerBorderColor}
+              innerBorderWidth={innerBorderWidth}
+              radiusLineColor={radiusLineColor}
+              radiusLineWidth={radiusLineWidth}
+              spinDuration={spinDuration}
+              textDistance={textDistance}
+              onStopSpinning={handleStopSpinning}
+            />
+            <button className="spin-button" onClick={handleSpinClick}>
+              Rodar
+            </button>
+          </div>
         )}
       </header>
     </div>
